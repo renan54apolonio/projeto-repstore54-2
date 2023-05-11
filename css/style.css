@@ -11,7 +11,7 @@ body {
 }
 
 header {
-    height: 180px;
+    height: 160px;
     background: linear-gradient(to bottom, #66ccff, #003399);
     display: flex;
     justify-content: center;
@@ -19,7 +19,7 @@ header {
 }
 
 h1 {
-    font-size: 60px;
+    font-size: 40px;
     color: white;
     text-align: center;
 }

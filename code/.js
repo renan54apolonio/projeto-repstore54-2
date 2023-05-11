@@ -4,7 +4,7 @@ let startX, scrollLeft;
 
 nav.addEventListener('touchstart', (e) => {
   isDragging = true;
-  startX = e.touches[0].clientX;
+  startX = e.touches[0].clientX - nav.offsetLeft;
   scrollLeft = nav.scrollLeft;
 });
 
@@ -15,7 +15,7 @@ nav.addEventListener('touchend', () => {
 nav.addEventListener('touchmove', (e) => {
   if (!isDragging) return;
   e.preventDefault();
-  const x = e.touches[0].clientX;
-  const scrollX = x - startX;
-  nav.scrollLeft = scrollLeft - scrollX;
+  const x = e.touches[0].clientX - nav.offsetLeft;
+  const walk = (x - startX) * 3;
+  nav.scrollLeft = scrollLeft - walk;
 });
