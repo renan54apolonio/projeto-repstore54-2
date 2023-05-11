@@ -8,27 +8,6 @@ nav.innerHTML += nav.innerHTML;
 let isDragging = false;
 let startX, scrollLeft;
 
-nav.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  startX = e.pageX - nav.offsetLeft;
-  scrollLeft = nav.scrollLeft;
-  nav.classList.add('active');
-});
-
-nav.addEventListener('mouseup', () => {
-  isDragging = false;
-  nav.classList.remove('active');
-  snapToClosestNavItem();
-});
-
-nav.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
-  e.preventDefault();
-  const x = e.pageX - nav.offsetLeft;
-  const walk = (x - startX) * 3;
-  nav.scrollLeft = scrollLeft - walk;
-});
-
 nav.addEventListener('touchstart', (e) => {
   isDragging = true;
   startX = e.touches[0].clientX - nav.offsetLeft;
@@ -75,3 +54,4 @@ function snapToClosestNavItem() {
     behavior: 'smooth'
   });
 }
+
