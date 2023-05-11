@@ -2,9 +2,6 @@ const nav = document.querySelector('nav');
 const navLinks = document.querySelectorAll('nav a');
 const navLinksCount = navLinks.length;
 
-// Clone o menu e adicione-o ao final para criar um efeito de slider infinito
-nav.innerHTML += nav.innerHTML;
-
 let isDragging = false;
 let startX, scrollLeft;
 
@@ -42,11 +39,6 @@ function snapToClosestNavItem() {
     }
   });
 
-  // Se o item mais próximo for um item clonado, mude o índice para o item original correspondente
-  if (closestIndex >= navLinksCount) {
-    closestIndex -= navLinksCount;
-  }
-
   // Rola para o item mais próximo
   const closestLink = navLinks[closestIndex];
   nav.scrollTo({
@@ -54,4 +46,3 @@ function snapToClosestNavItem() {
     behavior: 'smooth'
   });
 }
-
