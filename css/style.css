@@ -11,7 +11,7 @@ body {
 }
 
 header {
-    height: 140px;
+    height: 120px;
     background: linear-gradient(to bottom, #66ccff, #003399);
     display: flex;
     justify-content: center;
