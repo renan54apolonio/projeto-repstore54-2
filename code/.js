@@ -76,3 +76,6 @@ function snapToClosestNavItem() {
     behavior: 'smooth'
   });
 }
+
+
+
