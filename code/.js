@@ -39,6 +39,11 @@ function snapToClosestNavItem() {
     }
   });
 
+  // Se o item mais próximo for um item clonado, mude o índice para o item original correspondente
+  if (closestIndex >= navLinksCount) {
+    closestIndex -= navLinksCount;
+  }
+
   // Rola para o item mais próximo
   const closestLink = navLinks[closestIndex];
   nav.scrollTo({
@@ -46,3 +51,6 @@ function snapToClosestNavItem() {
     behavior: 'smooth'
   });
 }
+
+// Habilita o deslocamento horizontal durante o toque
+nav.style.touchAction = 'pan-y';
