@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+header {
+    height: 180px;
+    background: linear-gradient(to bottom, #66ccff, #003399);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 60px;
+    color: white;
+    text-align: center;
+}
+
+main {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+nav {
+ 
+    border-radius: 10px;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+ul {
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: inline-block;
+}
+
+.botao {
+    background-color: #ccc;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 20px;
+}
