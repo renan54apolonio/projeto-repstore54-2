@@ -1,57 +1,79 @@
+const nav = document.querySelector('nav');
+const navLinks = document.querySelectorAll('nav a');
+const navLinksCount = navLinks.length;
 
-const slider = document.querySelector('.slider');
-const slides = document.querySelectorAll('.slide');
-const slideWidth = slides[0].offsetWidth;
+// Clone o menu e adicione-o ao final para criar um efeito de slider infinito
+nav.innerHTML += nav.innerHTML;
 
 let isDragging = false;
-let startPosition = 0;
-let currentTranslate = 0;
-let previousTranslate = 0;
-let animationId = 0;
+let startX, scrollLeft;
 
-slides.forEach((slide, index) => {
-  // Touch events
-  slide.addEventListener('pointerdown', e => {
-    isDragging = true;
-    startPosition = e.clientX || e.touches[0].clientX;
-    currentTranslate = -index * slideWidth;
-    previousTranslate = currentTranslate;
-    cancelAnimationFrame(animationId);
-  });
-
-  slide.addEventListener('pointermove', e => {
-    if (isDragging) {
-      const currentPosition = e.clientX || e.touches[0].clientX;
-      const diff = currentPosition - startPosition;
-      currentTranslate = previousTranslate + diff;
-      setSliderPosition();
-    }
-  });
-
-  slide.addEventListener('pointerup', () => {
-    isDragging = false;
-    cancelAnimationFrame(animationId);
-    const slideIndex = Math.round(-currentTranslate / slideWidth);
-    currentTranslate = -slideIndex * slideWidth;
-    previousTranslate = currentTranslate;
-    setSliderPosition();
-  });
-
-  slide.addEventListener('pointerleave', () => {
-    if (isDragging) {
-      isDragging = false;
-      cancelAnimationFrame(animationId);
-      const slideIndex = Math.round(-currentTranslate / slideWidth);
-      currentTranslate = -slideIndex * slideWidth;
-      previousTranslate = currentTranslate;
-      setSliderPosition();
-    }
-  });
+nav.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startX = e.pageX - nav.offsetLeft;
+  scrollLeft = nav.scrollLeft;
+  nav.classList.add('active');
 });
 
-function setSliderPosition() {
-  slider.style.transform = `translateX(${currentTranslate}px)`;
-  animationId = requestAnimationFrame(setSliderPosition);
+nav.addEventListener('mouseup', () => {
+  isDragging = false;
+  nav.classList.remove('active');
+  snapToClosestNavItem();
+});
+
+nav.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  e.preventDefault();
+  const x = e.pageX - nav.offsetLeft;
+  const walk = (x - startX) * 3;
+  nav.scrollLeft = scrollLeft - walk;
+});
+
+nav.addEventListener('touchstart', (e) => {
+  isDragging = true;
+  startX = e.touches[0].clientX - nav.offsetLeft;
+  scrollLeft = nav.scrollLeft;
+  nav.classList.add('active');
+});
+
+nav.addEventListener('touchend', () => {
+  isDragging = false;
+  nav.classList.remove('active');
+  snapToClosestNavItem();
+});
+
+nav.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  e.preventDefault();
+  const x = e.touches[0].clientX - nav.offsetLeft;
+  const walk = (x - startX) * 3;
+  nav.scrollLeft = scrollLeft - walk;
+});
+
+function snapToClosestNavItem() {
+  // Encontre o índice do item mais próximo do centro do menu
+  let closestIndex = 0;
+  let closestDistance = Infinity;
+  const center = nav.offsetWidth / 2;
+  navLinks.forEach((link, i) => {
+    const distance = Math.abs(link.offsetLeft - center);
+    if (distance < closestDistance) {
+      closestIndex = i;
+      closestDistance = distance;
+    }
+  });
+
+  // Se o item mais próximo for um item clonado, mude o índice para o item original correspondente
+  if (closestIndex >= navLinksCount) {
+    closestIndex -= navLinksCount;
+  }
+
+  // Rola para o item mais próximo
+  const closestLink = navLinks[closestIndex];
+  nav.scrollTo({
+    left: closestLink.offsetLeft - nav.offsetWidth / 2 + closestLink.offsetWidth / 2,
+    behavior: 'smooth'
+  });
 }
 
 
