@@ -1,25 +1,32 @@
 let container = $(".container");
-let buttons = $(".button");
+let inner = $(".inner");
 let isDragging = false;
-let startX, scrollLeft;
+let startClientX, startPageX, currentX = 0;
 
-container.on("touchstart", e => {
+inner.on("touchstart", e => {
 	isDragging = true;
-	startX = e.touches[0].clientX - container.offset().left;
-	scrollLeft = container.scrollLeft();
+	startClientX = e.touches[0].clientX;
+	startPageX = e.touches[0].pageX;
+	currentX = inner.offset().left;
 });
 
-container.on("touchmove", e => {
+inner.on("touchmove", e => {
 	if (!isDragging) return;
-	let x = e.touches[0].clientX - container.offset().left;
-	let walk = (x - startX) * 2;
-	container.scrollLeft(scrollLeft - walk);
+	let currentClientX = e.touches[0].clientX;
+	let currentDeltaX = currentClientX - startClientX;
+	let currentPageX = e.touches[0].pageX;
+	let currentDeltaPageX = currentPageX - startPageX;
+	let newX = currentX + currentDeltaPageX;
+	if (newX > 0) newX = 0;
+	if (newX < - (inner.width() - container.width())) newX = - (inner.width() - container.width());
+	inner.css({ left: newX });
+	e.preventDefault();
 });
 
-container.on("touchend", e => {
+inner.on("touchend", e => {
 	isDragging = false;
 });
 
-container.on("touchcancel", e => {
+inner.on("touchcancel", e => {
 	isDragging = false;
 });

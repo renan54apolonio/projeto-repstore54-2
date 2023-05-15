@@ -31,10 +31,13 @@ main {
 }
 
 .container {
-    margin-top: 20px;
-	display: flex;
+	position: relative;
 	overflow: hidden;
 	max-width: 100%;
+}
+
+.inner {
+	display: flex;
 }
 
 .button {
@@ -47,3 +50,4 @@ main {
 	font-weight: bold;
 	font-size: 20px;
 }
+
