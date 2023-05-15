@@ -1,20 +1,25 @@
-let container = document.querySelector(".container");
-let buttons = document.querySelectorAll(".button");
-let startX, endX;
+let container = $(".container");
+let buttons = $(".button");
+let isDragging = false;
+let startX, scrollLeft;
 
-container.addEventListener("touchstart", e => {
-	startX = e.touches[0].clientX;
+container.on("mousedown", e => {
+	isDragging = true;
+	startX = e.pageX - container.offset().left;
+	scrollLeft = container.scrollLeft();
 });
 
-container.addEventListener("touchmove", e => {
-	endX = e.touches[0].clientX;
-	let diffX = endX - startX;
-	container.scrollLeft -= diffX;
-	startX = endX;
+container.on("mousemove", e => {
+	if (!isDragging) return;
+	let x = e.pageX - container.offset().left;
+	let walk = (x - startX) * 2;
+	container.scrollLeft(scrollLeft - walk);
 });
 
-container.addEventListener("touchend", e => {
-	endX = e.changedTouches[0].clientX;
-	let diffX = endX - startX;
-	container.scrollLeft -= diffX;
+container.on("mouseup", e => {
+	isDragging = false;
+});
+
+container.on("mouseleave", e => {
+	isDragging = false;
 });
