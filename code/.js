@@ -35,4 +35,3 @@ inner.addEventListener('touchmove', function(event) {
 inner.addEventListener('touchend', function(event) {
     inner.style.transform = 'translateX(0)';
 });
-

@@ -31,24 +31,23 @@ main {
 }
 
 .container {
-	position: relative;
-	overflow: hidden;
+    margin-top: 20px;
 	max-width: 100%;
+	overflow-x: hidden;
 }
-
 .inner {
-    white-space: nowrap;
 	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
 }
-
 .button {
-	background-color: gray;
-	border-radius: 10px;
+	flex: 0 0 auto;
+	background-color: #bbb;
+	border: none;
+	border-radius: 20px;
 	padding: 10px;
 	margin-right: 10px;
-	border: none;
-	color: white;
-	font-weight: bold;
 	font-size: 20px;
+	color: #fff;
 }
-
