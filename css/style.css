@@ -33,7 +33,7 @@ main {
 .container {
     margin-top: 20px;
 	display: flex;
-	overflow: hidden;
+	overflow: auto;
 	max-width: 100%;
 }
 
