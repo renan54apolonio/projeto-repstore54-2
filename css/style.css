@@ -37,6 +37,7 @@ main {
 }
 
 .inner {
+    white-space: nowrap;
 	display: flex;
 }
 
