@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            height: 200px;
+            background-color: blue;
+        }
+        
+        .slider {
+            display: flex;
+            overflow-x: scroll;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .slide {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            height: calc(100vh - 200px);
+        }
+        
+        .slide:nth-child(1) {
+            background-color: red;
+        }
+        
+        .slide:nth-child(2) {
+            background-color: green;
+        }
+        
+        .slide:nth-child(3) {
+            background-color: yellow;
+        }
+        
+        .slide:nth-child(4) {
+            background-color: orange;
+        }
+        
+        .slide:nth-child(5) {
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Insira o título do header aqui -->
+    </header>
+
+    <div class="slider">
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
+
+    <script>
+        const slider = document.querySelector('.slider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 3; // Adjust scrolling speed here
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        // Touch Events for Mobile Devices
+        slider.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].clientX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('touchend', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].clientX - slider.offsetLeft;
+            const walk = (x - startX) * 3; // Adjust scrolling speed here
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+</html>
