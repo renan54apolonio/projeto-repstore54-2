@@ -23,7 +23,7 @@
         .slide {
             flex: 0 0 100%;
             scroll-snap-align: start;
-            height: calc(100vh - 200px);
+            height: 100px;
         }
         
         .slide:nth-child(1) {
@@ -45,6 +45,17 @@
         .slide:nth-child(5) {
             background-color: purple;
         }
+        
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            background-color: gray;
+            color: white;
+            border-radius: 20px;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -53,11 +64,21 @@
     </header>
 
     <div class="slider">
-        <div class="slide"></div>
-        <div class="slide"></div>
-        <div class="slide"></div>
-        <div class="slide"></div>
-        <div class="slide"></div>
+        <div class="slide">
+            <a class="button" href="https://www.example.com">Teste1</a>
+        </div>
+        <div class="slide">
+            <a class="button" href="https://www.example.com">Teste2</a>
+        </div>
+        <div class="slide">
+            <a class="button" href="https://www.example.com">Teste3</a>
+        </div>
+        <div class="slide">
+            <a class="button" href="https://www.example.com">Teste4</a>
+        </div>
+        <div class="slide">
+            <a class="button" href="https://www.example.com">Teste5</a>
+        </div>
     </div>
 
     <script>
@@ -102,9 +123,4 @@
         slider.addEventListener('touchmove', (e) => {
             if (!isDown) return;
             const x = e.touches[0].clientX - slider.offsetLeft;
-            const walk = (x - startX) * 3; // Adjust scrolling speed here
-            slider.scrollLeft = scrollLeft - walk;
-        });
-    </script>
-</body>
-</html>
+           
